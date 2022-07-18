@@ -1,0 +1,20 @@
+1.Selecting city of headquarter airport
+ SELECT city FROM Airport WHERE Airport_names=(SELECT Airport_names FROM Airport WHERE Airport_names LIKE "%Uganda%");
+
+2.Selecting the Airline name of a country.
+SELECT Airline_name FROM airline WHERE Airline_code IN (SELECT Airline_code FROM Aeroplane WHERE ID IN (SELECT Airport_id FROM Airport WHERE Airport_names=(SELECT Airport_names 
+FROM Airport WHERE Airport_names LIKE "%Uganda%")));
+
+3.Counting the number of airlines in a country
+sqlite> SELECT COUNT(Airline_name) FROM airline WHERE ID IN (SELECT Airport_id FROM Airport WHERE country="USA");
+
+4.Identifying the number of Airlines ia a particular country.
+sqlite> SELECT Airline_name FROM airline
+   ...> JOIN Airport ON Airport.Airport_id=Airline.ID
+   ...> WHERE Airport.country="South Africa";
+
+5.Identifying the headquater airport of a  given Airline
+SELECT Airport_names FROM Airport
+   ...> JOIN airline ON airline.ID=Airport.Airport_id
+   ...> WHERE Airline.Airline_name="Emirates";
+
